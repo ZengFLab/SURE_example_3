@@ -36,6 +36,10 @@ for i in range(n_batches):
         lambda x: x['supercluster_term'].mode().iloc[0]
         ).loc[adata_metacells.obs_names]
 
+    adata_metacells.obs['tissue'] = adata.obs.groupby('metacells').apply(
+        lambda x: x['tissue'].mode().iloc[0]
+        ).loc[adata_metacells.obs_names]
+
     adata_metacells.obs['Batch'] = f'B{i+1}'
     
     adata_metacells.write_h5ad(f'human_brain_B{i+1}_metacells.h5ad')
